@@ -3,6 +3,7 @@ A Kuka youBot reaches for 4 randomly places targets.
 This script contains examples of:
     - Linear mobile paths with an omnidirectional robot to reach a target.
 """
+
 from os.path import dirname, join, abspath
 from pyrep import PyRep
 from pyrep.robots.mobiles.youbot import YouBot
@@ -11,17 +12,20 @@ from pyrep.const import PrimitiveShape
 import numpy as np
 
 LOOPS = 4
-SCENE_FILE = join(dirname(abspath(__file__)), 'scene_youbot_navigation.ttt')
+SCENE_FILE = join(dirname(abspath(__file__)), "scene_youbot_navigation.ttt")
 pr = PyRep()
 pr.launch(SCENE_FILE, headless=False)
 pr.start()
 agent = YouBot()
 
 # We could have made this target in the scene, but lets create one dynamically
-target = Shape.create(type=PrimitiveShape.SPHERE,
-                      size=[0.05, 0.05, 0.05],
-                      color=[1.0, 0.1, 0.1],
-                      static=True, respondable=False)
+target = Shape.create(
+    type=PrimitiveShape.SPHERE,
+    size=[0.05, 0.05, 0.05],
+    color=[1.0, 0.1, 0.1],
+    static=True,
+    respondable=False,
+)
 
 position_min, position_max = [-0.5, 1.4, 0.1], [1.0, 0.5, 0.1]
 
@@ -45,7 +49,7 @@ for i in range(LOOPS):
 
     path.clear_visualization()
 
-    print('Reached target %d!' % i)
+    print("Reached target %d!" % i)
 
 pr.stop()
 pr.shutdown()
